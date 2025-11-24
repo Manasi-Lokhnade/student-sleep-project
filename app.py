@@ -1,15 +1,13 @@
-# src/app.py — Streamlit GPA Prediction App
-
 import streamlit as st
 import pandas as pd
-from src.predict import Predictor
+from predict import Predictor   # no src. prefix!
 
 st.set_page_config(page_title="GPA Predictor", layout="centered")
-st.title("Student GPA Prediction App (Regression)")
+st.title("Student GPA Prediction App")
 
 @st.cache_resource
 def load_model():
-    return Predictor("model/model.pkl")
+    return Predictor("../model/model.pkl")   # model is outside src/
 
 predictor = load_model()
 
@@ -42,3 +40,4 @@ if st.sidebar.button("Predict GPA"):
     df_input = pd.DataFrame([inputs])
     prediction = float(predictor.predict(df_input)[0])
     st.success(f"Predicted GPA: {prediction:.2f}")
+
